@@ -8,9 +8,8 @@ const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.POSTGRES_URL,
   entities: [courses],
-  synchronize: true, // Be cautious with this in production
+  synchronize: false, // Be cautious with this in production
   logging: true,
-  metadataTableName: "verceldb",
 });
 console.log(courses.name);
 
