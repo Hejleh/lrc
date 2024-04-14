@@ -1,7 +1,7 @@
 import express, { Application } from "express";
-import courseRouter from "./routes/courses";
-import notFound from "./routes/notFound";
-import AppDataSource from "./DB/database";
+import courseRouter from "../routes/courses";
+import notFound from "../routes/notFound";
+import AppDataSource from "../DB/database";
 import cors from "cors";
 import dotenv from "dotenv";
 
