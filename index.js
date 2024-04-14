@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const courseRouter = require("./routes/courses");
+const notFound = require("./routes/notFound");
 const AppDataSource = require("./DB/database");
 const baseRouter = "/api/";
 const cors = require("cors");
@@ -11,6 +12,7 @@ console.log(port);
 app.use(cors());
 app.use(express.json());
 app.use(baseRouter + "courses", courseRouter);
+app.use("*", notFound);
 dotenv.config();
 
 const ConnectMySql = () => {
