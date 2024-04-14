@@ -10,8 +10,8 @@ const AppDataSource = new DataSource({
   entities: [courses],
   synchronize: true, // Be cautious with this in production
   logging: true,
+  metadataTableName: "verceldb",
 });
-
 console.log(courses.name);
 
 export default AppDataSource;
