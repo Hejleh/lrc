@@ -7,8 +7,8 @@ const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.POSTGRES_URL,
   entities: [CourseEntity],
-  synchronize: true, // Be cautious with this in production
-  logging: false,
+  synchronize: false, // Be cautious with this in production
+  logging: true,
 });
 
 module.exports = AppDataSource;
