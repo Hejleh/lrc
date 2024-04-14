@@ -1,9 +1,10 @@
-import { ILike } from "typeorm";
+import { ILike, Repository } from "typeorm";
 import { validationResult } from "express-validator";
 import AppDataSource from "../DB/database";
 import { courses } from "../Entity/courses.entity";
 
 const GetAllCourses = async (req: any, res: any) => {
+  let courseRepository: Repository<courses> | null = null;
   try {
     const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
     const perPage = parseInt(req.query.perPage) || 10; // Default to 10 items per page if not provided
@@ -12,7 +13,7 @@ const GetAllCourses = async (req: any, res: any) => {
     const type = req.query.type || null;
 
     // Access the repository associated with your entity
-    const courseRepository = AppDataSource.getRepository(courses);
+    courseRepository = AppDataSource.getRepository(courses);
 
     // Calculate the offset based on the current page and items per page
     const offset = (page - 1) * perPage;
@@ -38,7 +39,11 @@ const GetAllCourses = async (req: any, res: any) => {
   } catch (error) {
     // Handle database errors
     console.error("Error fetching courses:", error);
-    return res.status(500).json({ error: "Failed to fetch courses" });
+    return res.status(500).json({
+      error: error,
+      message: "Error fetching courses",
+      Repository: courseRepository,
+    });
   }
 };
 
