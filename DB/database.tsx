@@ -12,6 +12,6 @@ const AppDataSource = new DataSource({
   logging: true,
 });
 
-console.log(courses);
+console.log(courses.name);
 
 export default AppDataSource;
