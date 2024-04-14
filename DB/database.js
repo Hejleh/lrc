@@ -1,6 +1,6 @@
 const { DataSource } = require("typeorm");
 const dotenv = require("dotenv");
-const CourseEntity = require("../Entity/courses");
+const CourseEntity = require("../Entity/courses.js");
 dotenv.config();
 
 const AppDataSource = new DataSource({
