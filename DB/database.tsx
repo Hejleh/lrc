@@ -1,16 +1,17 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
-import { CourseEntity } from "../Entity/courses";
+import { courses } from "../Entity/courses.entity";
+
 dotenv.config();
 
 const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.POSTGRES_URL,
-  entities: [CourseEntity],
-  synchronize: false, // Be cautious with this in production
+  entities: [courses],
+  synchronize: true, // Be cautious with this in production
   logging: true,
 });
 
-console.log(CourseEntity);
+console.log(courses);
 
 export default AppDataSource;

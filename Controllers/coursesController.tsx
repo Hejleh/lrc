@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
-import { ILike, Repository } from "typeorm";
+import { ILike } from "typeorm";
 import { validationResult } from "express-validator";
 import AppDataSource from "../DB/database";
-import { CourseEntity } from "../Entity/courses";
+import { courses } from "../Entity/courses.entity";
 
 const GetAllCourses = async (req: any, res: any) => {
   try {
@@ -13,13 +12,13 @@ const GetAllCourses = async (req: any, res: any) => {
     const type = req.query.type || null;
 
     // Access the repository associated with your entity
-    const courseRepository = AppDataSource.getRepository(CourseEntity);
+    const courseRepository = AppDataSource.getRepository(courses);
 
     // Calculate the offset based on the current page and items per page
     const offset = (page - 1) * perPage;
 
     // Fetch paginated courses from the database
-    const courses = await courseRepository.find({
+    const getCourses = await courseRepository.find({
       skip: offset,
       take: perPage,
       where: {
@@ -33,8 +32,8 @@ const GetAllCourses = async (req: any, res: any) => {
     return res.status(200).json({
       page: page,
       perPage: perPage,
-      total: courses.length, // This might not be the total count, it's the count of fetched records
-      data: courses,
+      total: getCourses.length, // This might not be the total count, it's the count of fetched records
+      data: getCourses,
     });
   } catch (error) {
     // Handle database errors
@@ -48,7 +47,7 @@ const GetCourseById = async (req: any, res: any) => {
     const courseId = req.params.courseId;
 
     // Access the repository associated with your entity
-    const courseRepository = AppDataSource.getRepository(CourseEntity);
+    const courseRepository = AppDataSource.getRepository(courses);
 
     // Fetch the course by its ID from the database
     const course = await courseRepository.findOne({
@@ -75,7 +74,7 @@ const AddCourse = async (req: any, res: any) => {
   const { courseName, courseLevel, courseType, recommendedBy, courseLink } =
     req.body;
   try {
-    const courseRepository = AppDataSource.getRepository(CourseEntity);
+    const courseRepository = AppDataSource.getRepository(courses);
 
     // Create a new course entity instance
     const newCourse = courseRepository.create({
@@ -111,7 +110,7 @@ const UpdateCourse = async (req: any, res: any) => {
     const courseId = req.params.courseId;
 
     // Access the repository associated with your entity
-    const courseRepository = AppDataSource.getRepository(CourseEntity);
+    const courseRepository = AppDataSource.getRepository(courses);
 
     // Fetch the course by its ID from the database
     let course = await courseRepository.findOne({
@@ -142,7 +141,7 @@ const DeleteCourse = async (req: any, res: any) => {
     const courseId = req.params.courseId;
 
     // Access the repository associated with your entity
-    const courseRepository = AppDataSource.getRepository(CourseEntity);
+    const courseRepository = AppDataSource.getRepository(courses);
 
     // Delete the course from the database based on course_id
     const deleteResult = await courseRepository.delete({ course_id: courseId });

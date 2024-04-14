@@ -10,6 +10,6 @@
     "experimentalDecorators": true
   },
 
-  "include": ["../**/*.ts", "../**/*.tsx", "Entity/courses.tsx"],
+  "include": ["../**/*.ts", "../**/*.*.tsx", "Entity/courses.entity.ts"],
   "exclude": ["node_modules"]
 }
