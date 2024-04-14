@@ -1,11 +1,15 @@
-const express = require("express");
-const app = express();
-const courseRouter = require("./routes/courses");
-const notFound = require("./routes/notFound");
-const AppDataSource = require("./DB/database");
-const baseRouter = "/api/";
-const cors = require("cors");
-const dotenv = require("dotenv");
+import express, { Application } from "express";
+import courseRouter from "./routes/courses";
+import notFound from "./routes/notFound";
+import AppDataSource from "./DB/database";
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const app: Application = express();
+const baseRouter: string = "/api/";
+
 
 const port = process.env.PORT;
 console.log(port);

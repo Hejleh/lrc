@@ -1,8 +1,9 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
+import { Router } from "express";
+import coursesController from "../Controllers/coursesController";
+import courseValidation from "../Middleware/validation";
 
-const coursesController = require("../Controllers/coursesController");
-const courseValidation = require("../Middleware/validation");
+const router: Router = express.Router();
 
 router
   .route("/")
@@ -15,4 +16,4 @@ router
   .patch(coursesController.UpdateCourse)
   .delete(coursesController.DeleteCourse);
 
-module.exports = router;
+export default router;

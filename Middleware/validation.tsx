@@ -30,4 +30,4 @@ const courseValidation = () => {
   ];
 };
 
-module.exports = courseValidation;
+export default courseValidation;

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+
+  "include": ["../**/*.ts", "../**/*.tsx", "Entity/courses.tsx"],
+  "exclude": ["node_modules"]
+}

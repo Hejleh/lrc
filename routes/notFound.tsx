@@ -8,4 +8,4 @@ router
   .get(notFoundController.notFound)
   .post(notFoundController.notFound);
 
-module.exports = router;
+export default router;

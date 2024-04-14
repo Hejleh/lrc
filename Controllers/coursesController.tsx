@@ -1,9 +1,10 @@
-const { Entity, ILike } = require("typeorm");
-const { validationResult } = require("express-validator");
-const AppDataSource = require("../DB/database");
-const CourseEntity = require("../Entity/courses");
+import { Request, Response } from "express";
+import { ILike, Repository } from "typeorm";
+import { validationResult } from "express-validator";
+import AppDataSource from "../DB/database";
+import { CourseEntity } from "../Entity/courses";
 
-const GetAllCourses = async (req, res) => {
+const GetAllCourses = async (req: any, res: any) => {
   try {
     const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
     const perPage = parseInt(req.query.perPage) || 10; // Default to 10 items per page if not provided
@@ -42,7 +43,7 @@ const GetAllCourses = async (req, res) => {
   }
 };
 
-const GetCourseById = async (req, res) => {
+const GetCourseById = async (req: any, res: any) => {
   try {
     const courseId = req.params.courseId;
 
@@ -65,7 +66,7 @@ const GetCourseById = async (req, res) => {
   }
 };
 
-const AddCourse = async (req, res) => {
+const AddCourse = async (req: any, res: any) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -90,7 +91,7 @@ const AddCourse = async (req, res) => {
 
     // Return the created course in the response
     return res.status(201).json(savedCourse);
-  } catch (error) {
+  } catch (error: any) {
     // Check if the error is a database constraint violation error
     if (error.name === "QueryFailedError") {
       return res.status(400).json({
@@ -105,7 +106,7 @@ const AddCourse = async (req, res) => {
   }
 };
 
-const UpdateCourse = async (req, res) => {
+const UpdateCourse = async (req: any, res: any) => {
   try {
     const courseId = req.params.courseId;
 
@@ -124,8 +125,10 @@ const UpdateCourse = async (req, res) => {
     // Update the course entity with the data from the request body
     course = Object.assign(course, req.body);
 
-    // Save the updated course entity to the database
-    await courseRepository.save(course);
+    if (course) {
+      // Save the updated course entity to the database
+      await courseRepository.save(course);
+    }
 
     return res.status(200).json(course);
   } catch (error) {
@@ -134,7 +137,7 @@ const UpdateCourse = async (req, res) => {
   }
 };
 
-const DeleteCourse = async (req, res) => {
+const DeleteCourse = async (req: any, res: any) => {
   try {
     const courseId = req.params.courseId;
 
@@ -158,7 +161,7 @@ const DeleteCourse = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   GetAllCourses,
   GetCourseById,
   AddCourse,
